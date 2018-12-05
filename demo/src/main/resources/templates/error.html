@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>捕获全局异常</title>
+</head>
+<body>
+<h1 style="color:red">发生错误：</h1>
+<label>发生错误的地址:</label>
+<div th:text="${url}"></div>
+<label>发生错误的信息:</label>
+<div th:text="${exception.message}"></div>
+</body>
+</html>

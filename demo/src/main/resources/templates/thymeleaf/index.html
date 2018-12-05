@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <script th:src="@{/static/js/test.js}"></script> -->
+</head>
+<body>
+	<label>Thymeleaf模板</label>
+	<div>
+		<label>用户名:</label>
+		<input th:id="${user.name}" th:name="${user.name}" th:value="${user.name}" /><br /> 
+		<label>年龄:</label><input th:name="age" th:value="${user.age}" /><br /> 
+		<label>生日:</label><input th:name="birthday" th:value="${user.birthday}" /><br /> 
+		<label>生日格式化:</label>
+		<input th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}" /><br />
+	</div>
+	<br />
+	<br />
+	<div th:object="${user}">
+		<label>用户名:</label>
+		<input th:id="*{name}" th:name="*{name}" th:value="*{name}" /><br /> 
+		<label>年龄:</label>
+		<input th:name="age" th:value="*{age}" /><br /> 
+		<label>生日:</label>
+		<input th:name="birthday" th:value="*{birthday}" /><br /> 
+		<label>生日格式化:</label>
+		<input th:value="*{#dates.format(birthday,'yyyy-MM-dd hh:mm:ss')}" /><br />
+	</div>
+	<br />
+	<label>text 与  utext 的区别</label><br />
+	<span th:text="${user.desc}">abc</span><br />
+	<span th:utext="${user.desc}">abc</span><br />
+	
+	<label>URL </label><br />
+	<a href="http://www.baidu.com">普通的超链接</a><label></label>
+	<a th:href="@{http://www.baidu.com}">Thymeleaf的超链接</a>
+	<br />
+	<form th:object="${user}" th:action="@{/th/form}" method="post">
+		<input type="text" th:field="*{name}">
+		<input type="text" th:field="*{age}"><br/>
+		<input type="submit" value="提交"/>
+	</form>
+
+	<div th:if="${user.age eq 18}">18岁</div>
+	<div th:id="${user.age lt 18}">小于18岁，你很年轻</div>
+	<div th:id="${user.age gt 18}">大于18岁，你老了</div>
+	<div th:id="${user.age ge 18}">大于等于</div>
+	<div th:id="${user.age le 18}">小于等于</div>
+	<br/>
+	
+	<select>
+		<option>选择框</option>
+		<option th:selected="${user.name eq 'Java'}">Java</option>
+		<option th:selected="${user.name eq 'C'}">C</option>
+		<option th:selected="${user.name eq 'Lee'}">Lee</option>
+	</select>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>年龄描述</th>
+					<th>生日</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="person:${userList}">
+					<td th:text="${person.name}">姓名</td>
+					<td th:text="${person.age}">年龄</td>
+					<td th:text="${person.age gt 18} ? 你老了: 你很年轻">年龄描述</td>
+					<td th:text="${#dates.format(person.birthday,'yyyy-MM-dd')}">生日</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:switch="${user.name}">
+		<p th:case="'Lee'">Lee</p>
+		<p th:case="#{roles.manager}">普通管理员</p>
+		<p th:case="#{roles.superadmin}">超级管理员</p>
+		<p th:case="*">其他用户</p>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.redis.jedis.pool.mix-idle",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.redis.jedis.pool.mix-idle'"
+}]}

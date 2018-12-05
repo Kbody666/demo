@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.LoginMapper">
+  <sql id="loginjoins">
+  	id,
+  	login_name AS "loginName",
+  	password,
+  	phone
+  </sql>
+  
+  <insert id="insertLogin">
+  	insert into sys_login(id,login_name,password,phone) values(null,#{loginName},#{password},#{phone})
+  </insert>
+  
+  <select id="selectLoginList" resultType="com.example.pojo.Login">
+  	select
+  	 <include refid="loginjoins"></include>
+  	from sys_login
+  </select>
+</mapper>
